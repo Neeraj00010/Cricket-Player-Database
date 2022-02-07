@@ -1,0 +1,14 @@
+column_name,data_type,character_maximum_length,Description,Source
+manager_id,integer, null,Unique ID number assigned to team's managers,Assigned by BCCI
+manager_name,character varying,20,Name of the Manager,Entered by User
+payer_age,integer, null,Player's Age,Entered by User
+player_birth_place,character varying,20,Player's birth city,Entered by User
+player_fname,character varying,20,Player's First Name,Entered by User
+player_id,integer,null,Player's Unique Id number,Assigned by BCCI
+player_lname,character varying,20,Player Last Name,Entered by Player
+player_role_name,character varying,20,Role selected by a player,Entered by User
+province_code,character,3,Unique Code Assigned to the province,Based on Postal Code
+province_name,character varying,20,Province's Name,Entered by System
+role_name,character varying,20,Available Roles for players ,Entered by System
+team_code,character,3,Unique Code for playing team,Assigned by BCCI
+team_name,character varying,225,Playing Team's Name,Entered by User

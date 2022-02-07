@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<database name="Assignment2byAkshit" encoding="UTF8" lc-collate="English_United States.1252" lc-ctype="English_United States.1252" is-template="false" allow-conns="true">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="manager">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="0" y="40"/>
+	<column name="manager_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="manager_name" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<constraint name="pk_manager" type="pk-constr" table="public.manager">
+		<columns names="manager_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="province">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="440" y="520"/>
+	<column name="province_code" not-null="true">
+		<type name="character" length="3"/>
+	</column>
+	<column name="province_name" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<constraint name="pk_province" type="pk-constr" table="public.province">
+		<columns names="province_code" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="role">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="760" y="480"/>
+	<column name="role_name" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<constraint name="pk_player_role" type="pk-constr" table="public.role">
+		<columns names="role_name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="team">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="0" y="440"/>
+	<column name="team_code" not-null="true">
+		<type name="character" length="3"/>
+	</column>
+	<column name="team_name" not-null="true">
+		<type name="character varying" length="225"/>
+	</column>
+	<column name="manager_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="province_code" not-null="true">
+		<type name="character" length="3"/>
+	</column>
+	<constraint name="pk_team" type="pk-constr" table="public.team">
+		<columns names="team_code" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="player">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="360" y="200"/>
+	<column name="player_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="player_fname" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="player_lname">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="payer_age">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="player_birth_place" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="team_code" not-null="true">
+		<type name="character" length="3"/>
+	</column>
+	<column name="manager_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="player_role_name" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<constraint name="pk_player" type="pk-constr" table="public.player">
+		<columns names="player_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="fk_manager_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.manager" table="public.team">
+	<columns names="manager_id" ref-type="src-columns"/>
+	<columns names="manager_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_province_code" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.province" table="public.team">
+	<columns names="province_code" ref-type="src-columns"/>
+	<columns names="province_code" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_team_code" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.team" table="public.player">
+	<columns names="team_code" ref-type="src-columns"/>
+	<columns names="team_code" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_manager_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.manager" table="public.player">
+	<columns names="manager_id" ref-type="src-columns"/>
+	<columns names="manager_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_player_role_name" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.role" table="public.player">
+	<columns names="player_role_name" ref-type="src-columns"/>
+	<columns names="role_name" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_team_manager" type="relfk"
+	 custom-color="#83af1f"
+	 src-table="public.team"
+	 dst-table="public.manager" reference-fk="fk_manager_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_team_province" type="relfk"
+	 custom-color="#5aa578"
+	 src-table="public.team"
+	 dst-table="public.province" reference-fk="fk_province_code"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_player_team" type="relfk"
+	 custom-color="#4b3e56"
+	 src-table="public.player"
+	 dst-table="public.team" reference-fk="fk_team_code"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_player_manager" type="relfk"
+	 custom-color="#9ac721"
+	 src-table="public.player"
+	 dst-table="public.manager" reference-fk="fk_manager_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_player_role" type="relfk"
+	 custom-color="#249b49"
+	 src-table="public.player"
+	 dst-table="public.role" reference-fk="fk_player_role_name"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
